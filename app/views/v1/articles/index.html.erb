@@ -1,0 +1,29 @@
+
+<%= stylesheet_link_tag "article" %>
+
+<table>
+<thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+<tbody>
+<% @articles.each do |article| %>
+
+    <tr>
+        <td><%= article.title %></td>
+        <td><%= article.content %></td>
+        <td><%= article.author %></td>
+    </tr>
+<%end%>
+</tbody>
+</table>
+
+<%= link_to "Go to About Page", about_path %>
+
+
+
+
+

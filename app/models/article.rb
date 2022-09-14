@@ -4,6 +4,7 @@ class Article < ApplicationRecord
   validates :user_id, presence: true
   before_save :convert_lower_case
 
+
   def convert_lower_case
     self.author.downcase!
   end

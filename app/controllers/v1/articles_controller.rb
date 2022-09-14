@@ -1,18 +1,21 @@
 class V1::ArticlesController < ApplicationController
 
   before_action :search_article, only:[:show, :destroy, :update]
-
   skip_before_action :verify_authenticity_token
 
   def index
-    @articles = Article.all
+    if params[:user_id].present?
+      @articles = Article.where(user_id: params[:user_id])
+    else
+      @articles = Article.all
+    end
 
     if params[:name].present?
       @articles = @articles.where('author LIKE ?', '%' + params[:name] + '%')
     end
 
     #sorting
-    #article.order("author ASC")
+    #article.order("author ASC") => accept two parameters
     @articles = @articles.order(" #{params[:method] || 'author'} #{params[:sort_by]  || 'ASC'} ")
 
     #rails 5 => page and per
@@ -25,7 +28,7 @@ class V1::ArticlesController < ApplicationController
 
   def show
     render json: @article,
-          only: [:id, :title, :author, :content],
+          only: [:id, :title, :author, :content, :user_id],
           status: :ok
   end
 
@@ -67,7 +70,6 @@ class V1::ArticlesController < ApplicationController
   def search_article
     @article = Article.find_by( id: params[:id])
     if @article.blank?
-      #present? => return true of false
       render json: "Article not Present"
     end
   end

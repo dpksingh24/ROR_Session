@@ -25,6 +25,6 @@ Things you may want to cover:
 
 
 ## Assignment
-* return => users/id/articles
-* method (private) => id present or not
-* index and show
+✅ ⭕ * return => users/id/articles
+✅ * method (private) => id present or not
+✅ * index and show
